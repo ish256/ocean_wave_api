@@ -1,7 +1,9 @@
 
 # flask modules
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 from flask_restful import Resource, Api, reqparse
+
+import json
 
 # data processing modules
 import numpy as np
@@ -79,13 +81,16 @@ class returnWaveMatrixWParam(Resource):
         waveAtT = waveAtT.astype(np.float16)
 
         # return as json
-        waveData = pd.DataFrame(waveAtT).to_json(orient='split')
+        #waveData = pd.DataFrame(waveAtT).to_json(orient='split')
 
-        return jsonify(waveData)
+        waveData = make_response(pd.DataFrame(
+            waveAtT).to_json(orient="split"))
+
+        return waveData
 
 
 # add endpoint route
-api.add_resource(returnWaveMatrixWParam, '/returnWaveMatrixWParam/')
+api.add_resource(returnWaveMatrixWParam, '/getwavematrixwparam/')
 
 # if modules name is main (when code run directly) then run
 # server at specified address
