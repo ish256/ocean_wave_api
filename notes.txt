@@ -6,4 +6,4 @@ docker build -t ocean_wave_api .
 docker run -p 5000:5000 ocean_wave_api
 
 # run container from selected image with open port and mounted Virtual drive
-docker run -p 5000:5000 -v  /Users/Ismael/projects/ocean_wave_api:/app ocean_wave_api
+docker run -p 5000:5000 -v /Users/Ismael/projects/ocean_wave_api:/app ocean_wave_api
