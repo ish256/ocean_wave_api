@@ -74,19 +74,21 @@ class returnWaveMatrixWParam(Resource):
 
         # add code to smooth wave
 
+        # return as json (approach 2)
+        #waveData = pd.DataFrame(waveAtT).to_json(orient='values')
+        # waveData = make_response(pd.DataFrame(
+        #    waveAtT).to_json(orient="value"))
+        # return waveData
+
         # force it to be real valued
         waveAtT = np.real(waveAtT)
 
         # reduce precision to 16 bit float
         waveAtT = waveAtT.astype(np.float16)
 
-        # return as json
-        #waveData = pd.DataFrame(waveAtT).to_json(orient='split')
-
-        waveData = make_response(pd.DataFrame(
-            waveAtT).to_json(orient="split"))
-
-        return waveData
+        result = {'data': waveAtT.tolist(
+        ), 'initSpectrum': spectrum.tolist()}
+        return jsonify(result)
 
 
 # add endpoint route
