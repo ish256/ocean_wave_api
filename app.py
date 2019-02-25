@@ -48,7 +48,7 @@ class returnWaveMatrixWParam(Resource):
             np.deg2rad(angle))]
         windDirectionVect = windDirectionVect/np.linalg.norm(windDirectionVect)
 
-        # will now make the waveVectorField
+        # make the waveVectorField
 
         spatialExtent = 10  # scene extent in meters
         waveFieldDelta = 2*np.pi/spatialExtent
@@ -86,8 +86,10 @@ class returnWaveMatrixWParam(Resource):
         # reduce precision to 16 bit float
         waveAtT = waveAtT.astype(np.float16)
 
-        result = {'data': waveAtT.tolist(
-        ), 'initSpectrum': spectrum.tolist()}
+        result = {'data': waveAtT.tolist(),
+                  'spatialAxis': xGrid.tolist(),
+                  'initSpectrum': spectrum.tolist(),
+                  'waveFieldAxis': waveFieldKx.tolist()}
         return jsonify(result)
 
 
